@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reloj Digital Pixel Art</title>
+    <style>
+        body {
+            background-image: url('https://c.wallhere.com/photos/9a/a8/8_bit_1980s_red_black_Knight_Rider_K_I_T_T-40939.png!d');
+            background-size: cover;
+        }
+
+        .clock {
+            font-family: monospace;
+            font-size: 60px;
+            margin: 50px auto;
+            text-align: center;
+        }
+
+        .digit {
+            display: inline-block;
+            border: 5px solid rgb(255, 0, 0);
+            padding: 20px;
+            margin: 10px;
+            color: #fff;
+            background-color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="clock">
+        <div class="digit">
+            <span id="hour"></span>
+            <span>:</span>
+            <span id="minute"></span>
+            <span>:</span>
+            <span id="second"></span>
+        </div>
+    </div>
+    
+    <script>
+        function updateClock() {
+            var now = new Date();
+            var hour = now.getHours();
+            var minute = now.getMinutes();
+            var second = now.getSeconds();
+            
+            hour = hour.toString().padStart(2, '0');
+            minute = minute.toString().padStart(2, '0');
+            second = second.toString().padStart(2, '0');
+            
+            document.getElementById('hour').textContent = hour;
+            document.getElementById('minute').textContent = minute;
+            document.getElementById('second').textContent = second;
+        }
+
+        setInterval(updateClock, 1000);
+    </script>
+</body>
+</html>

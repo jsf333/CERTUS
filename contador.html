@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+    body {
+      background-color: #222;
+      color: #fff;
+      font-family: 'Press Start 2P', cursive;
+      margin: 0;
+    }
+
+    .pixel-art-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      position: relative; 
+      z-index: 1; 
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .contador {
+      display: flex;
+      align-items: center;
+    }
+
+    button {
+      background-color: #a6b111;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #666;
+    }
+
+    #valor {
+      margin: 0 10px;
+      font-size: 20px;
+    }
+
+    #youtube-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    #youtube-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 1;
+    }
+
+    #youtube-player {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="youtube-video"></div>
+  <div id="youtube-overlay">
+    <div class="pixel-art-container">
+      <h1>Contador</h1>
+      <div class="contador">
+        <button id="decrementar">-</button>
+        <span id="valor">0</span>
+        <button id="incrementar">+</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script>
+    var valorElement = document.getElementById('valor');
+    var incrementarButton = document.getElementById('incrementar');
+    var decrementarButton = document.getElementById('decrementar');
+    var contador = 0;
+    var player;
+
+    function actualizarValor() {
+      valorElement.textContent = contador;
+    }
+
+    incrementarButton.addEventListener('click', function() {
+      contador++;
+      actualizarValor();
+    });
+
+    decrementarButton.addEventListener('click', function() {
+      contador--;
+      actualizarValor();
+    });
+
+    actualizarValor();
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('youtube-video', {
+        videoId: '0d8R1u4vj1Q',
+        playerVars: {
+          autoplay: 1,
+          controls: 0,
+          loop: 1,
+          playlist: '0d8R1u4vj1Q'
+        },
+        events: {
+          onReady: function(event) {
+            event.target.playVideo();
+          },
+          onStateChange: function(event) {
+            if (event.data === YT.PlayerState.ENDED) {
+              player.playVideo();
+            }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
